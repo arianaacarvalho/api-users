@@ -1,0 +1,23 @@
+{
+  "name": "apiusers",
+  "version": "1.0.0",
+  "description": "CRUD de usuários",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arianaacarvalho/apiUsers.git"
+  },
+  "author": "arianaacarvalho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arianaacarvalho/apiUsers/issues"
+  },
+  "homepage": "https://github.com/arianaacarvalho/apiUsers#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
