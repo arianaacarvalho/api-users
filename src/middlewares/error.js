@@ -1,4 +1,7 @@
-const {NotFoundError} = require('../errors')
+const {NotFoundError, ValidationError} = require('../errors')
+
+const validationsToCause = validations =>
+  validations.map(({ message, context: { label } }) => ({ message, field: label }))
 
 const responseMappers = {
   [NotFoundError.name]: (error) => ({
@@ -10,24 +13,33 @@ const responseMappers = {
       couse: [],
     }
   }),
+  [ValidationError.name]: (error) => ({
+    status: 400,
+    body: {
+      statusCode: 400,
+      error: ValidationError.name,
+      message: error.message,
+      cause: validationsToCause(error.validations ?? []),
+    }
+  }),
   default: (error) =>({
     status: 500,
     body: {
       statusCode: 500,
       error: error.name ?? 'UnexpectedError',
-      mmessage: error.message,
+      message: error.message,
       couse: [],
     }
   })
 }
 
-const errorHandler = (log = console.log) => (error, _req, res, _next) => {
-  log(error)
+const errorHandler = (log = console.error) => (error, _req, res, _next) => {
+    log(error)
 
-  const mapper = responseMappers[error.name] ?? responseMappers.default
-  const {status, body} = mapper(error)
+    const mapper =responseMappers[error.name] ?? responseMappers.default
+    const { status, body } = mapper(error)
 
-  res.status(status).send(body)
-}
+    res.status(status).send(body)
+  }
 
 module.exports = errorHandler
