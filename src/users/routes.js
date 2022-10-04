@@ -18,6 +18,8 @@ const repository = UsersRepository()
   - D: delete
 */
 
+const nameRegex = /^[A-Z][a-z]+$/
+
 // ************
 // ** create **
 // ************
@@ -25,8 +27,9 @@ const repository = UsersRepository()
 const createUserSchema = {
   body: Joi.object({
     username: Joi.string().email().required(),
-    name: Joi.string().regex(/^[A-Za-z]+(\s?[A-Za-z])*$/).required(),
     password: Joi.string().min(5).max(40).required(),
+    fristName: Joi.string().regex(nameRegex).required(),
+    lastName: Joi.string().regex(nameRegex).required(),
   })
 }
 
@@ -46,9 +49,10 @@ router.post('/', validate(createUserSchema), withAsyncErrorHandler(createUser))
 
 const updateUserSchema = {
   body: Joi.object({
-    name: Joi.string().regex(/^[A-Za-z]+(\s?[A-Za-z])*$/).required(),
     password: Joi.string().min(5).max(40).required(),
-  }).or('name', 'password'),
+    fristName: Joi.string().regex(nameRegex).required(),
+    lastName: Joi.string().regex(nameRegex).required(),
+  }).or('fristName', 'lastName', 'password'),
   params: {
     id: Joi.number().required(),
   }
