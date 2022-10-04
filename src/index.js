@@ -1,4 +1,5 @@
 const express = require('express')
+
 const users = require('./users/routes')
 const logger = require('./middlewares/logger')
 const errorHandler = require('./middlewares/error')
@@ -7,10 +8,10 @@ const app = express()
 const router = express.Router()
 
 router.use(express.json())
+router.use(logger())
 router.use('/users', users)
-router.use('/logger', logger)
 
-router.use(errorHandler)
+router.use(errorHandler())
 
 app.use('/api', router)
 

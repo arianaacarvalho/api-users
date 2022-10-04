@@ -10,11 +10,6 @@ const { UsersRepository } = require('./repository')
 
 const repository = UsersRepository()
 
-const NotFound = {
-  error: 'Not found',
-  message: 'Resource not found',
-}
-
 /*
   CRUD de usuários
   - C: create
@@ -60,15 +55,13 @@ const updateUserSchema = {
 }
 
 const updateUser = async (req, res) => {
-  // e se for NaN ?
   const id = parseInt(req.params.id)
 
-  // e se não for um JSON de usuário válido ?
   const body = req.body
 
   await repository.get(id)
 
-  const user = { ...body, id }
+  const user = { ...registered, ...body, id  }
   const updated = await repository.update(user)
   res.status(200).send(updated)
 }
@@ -86,7 +79,6 @@ const deleteUserSchema = {
 }
 
 const deleteUser = async (req, res) => {
-  // e se for NaN ?
   const id = parseInt(req.params.id)
 
   await repository.get(id)
@@ -113,7 +105,6 @@ const getUserSchema = {
 }
 
 const getUser = async (req, res) => {
-  // e se for NaN
   const id = parseInt(req.params.id)
 
   const user = await repository.get(id)
