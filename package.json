@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "migrations:add": "echo 'Migration name' && read migration_name && knex migrate:make $migration_name --knexfile=.knexfile.js",
+    "migrations:migrate": "knex migrate:latest --knexfile=.knexfile.js"
   },
   "repository": {
     "type": "git",

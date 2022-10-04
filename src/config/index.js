@@ -1,15 +1,19 @@
-const { UsersRepository } = require("../users/repository")
+const immutable = Object.freeze
 
-const database = {
+const database = immutable({
   client: 'mysql2',
-  conection: {
-    host: 'localhost',
+  connection: immutable({
+    host: '127.0.0.1',
     port: 3306,
     user: 'staart',
     password: 'staart',
-    database: users,
-  }
-}
+    database: 'users',
+  }),
+  migrations: immutable({
+    tableName: 'migrations',
+  }),
+})
+
 
 module.exports = {
   database,
