@@ -1,10 +1,14 @@
 # API Users
-CRUD de usuários (em andamento)
+CRUD de usuários
 
 ## Aprendizados
-- Fundação
+- Fundação (Express e Nodemon)
 - Banco de dados na memória
 - Erro de dominio
+- Validação (JOI)
+- Conexão com banco de dados (MySQL e Knex)
+- Migrations
+- Client HTTP (node-fetch e Postman)
 
 ## Curso
 - Plattafotma: Staart
